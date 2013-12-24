@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title><%= title %></title>
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Tangerine">
+<style>
+div{
+	position:absolute;
+}
+.xx-box{
+	left:50%;
+	top:50%;
+	margin-left:-250px;
+	margin-top:-250px;
+	width:500px;
+	height:500px;
+	
+}
+.xx-box .text{
+	top:30%;
+	height:48px;
+	line-height:48px;
+	color:#f00;
+	text-shadow: 3px 3px 4px #f00;
+	font-size:36px;
+	font-weight:bold;
+	width:100%;
+	text-align:center;
+	font-family:Tangerine,Tahoma,Arial,"\65f6\5c1a\4e2d\9ed1\7b80\4f53","\5b8b\4f53";
+}
+.xx-box .item{
+	width:60px;
+	height:60px;
+	overflow:hidden;
+}
+</style>
+</head>
+<body>
+<span style="float:right">
+	<div class="xx-box" id="xx-box">
+		<div class="text">Merry Christmas</div>
+	</div>
+</span>
+<script>
+function createPoint(x,y,c){
+	var div = document.createElement("div");
+	div.className = "item";
+	div.style.left = x + "px";
+	div.style.top = y + "px";	
+	var img = document.createElement("img");
+	img.src = "/images/flower.png";
+	div.appendChild(img);	
+	document.getElementById("xx-box").appendChild(div);
+}
+var i = 0, r = 100, dx = 250, dy = 100, c = "#f00";
+function heartShape(){
+	var m,n,x,y;
+	if(i <= 7){
+		m = i;
+		n = -r * (((Math.sin(i) * Math.sqrt(Math.abs(Math.cos(i)))) / (Math.sin(i) + 1.4)) - 2 * Math.sin(i) + 2);
+		x = n * Math.cos(m) + dx;
+		y = n * Math.sin(m) + dy;
+		i += 0.04;
+				
+		createPoint(x,y,c);
+		setTimeout(heartShape,100);
+	}
+}
+heartShape();
+</script>
+</body>
+</html>
