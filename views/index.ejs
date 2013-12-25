@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <title><%= title %></title>
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Tangerine">
+<script src="/js/jquery-2.0.3.js">
+</script>
 <style>
 div{
 	position:absolute;
@@ -43,17 +45,28 @@ div{
 	</div>
 </span>
 <script>
-function createPoint(x,y,c){
+function createPoint(x,y,id){
 	var div = document.createElement("div");
 	div.className = "item";
 	div.style.left = x + "px";
 	div.style.top = y + "px";	
 	var img = document.createElement("img");
 	img.src = "/images/flower.png";
-	div.appendChild(img);	
+	div.appendChild(img);
+	div.id = id;
 	document.getElementById("xx-box").appendChild(div);
+	$("#"+id).hide();
+	$("#"+id).fadeIn(3000);
 }
-var i = 0, r = 100, dx = 250, dy = 100, c = "#f00";
+var i = 0, r = 100,id = 0, dx = 250, dy = 100, c = "#f00";
+var arr = [];
+function insect(x1,x2,x3,x4){
+    return (x1 > x3 && x1 < x4) || (x2 > x3 && x2 < x4) || (x3 > x1 && x3 < x2) || (x4 > x1 && x3 < x2);
+}
+function conflict(rect1, rect2, diff){
+    console.log(rect1 + " " + rect2);
+    return insect(rect1[0],rect1[0]+diff,rect2[0],rect2[0]+diff) && insect(rect1[1],rect1[1]+diff,rect2[1],rect2[1]+diff);
+}
 function heartShape(){
 	var m,n,x,y;
 	if(i <= 7){
@@ -61,10 +74,19 @@ function heartShape(){
 		n = -r * (((Math.sin(i) * Math.sqrt(Math.abs(Math.cos(i)))) / (Math.sin(i) + 1.4)) - 2 * Math.sin(i) + 2);
 		x = n * Math.cos(m) + dx;
 		y = n * Math.sin(m) + dy;
-		i += 0.04;
-				
-		createPoint(x,y,c);
-		setTimeout(heartShape,100);
+		i += 0.01;
+		var flag = 0;
+		var now = [x,y];
+		for(var j = 0; j < arr.length; j++){
+			if(conflict(arr[j],now,30)) {flag  = 1; break;}		
+		}
+		if(0== flag){
+		    id += 1;
+			arr.push(now);		
+			createPoint(x,y,"flower" + id);
+		    setTimeout(heartShape,200);
+		}
+		else setTimeout(heartShape,0);
 	}
 }
 heartShape();
