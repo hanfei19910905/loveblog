@@ -9,7 +9,11 @@
     "express": "3.4.7",
     "ejs": "*",
     "mongodb":"*",
+<<<<<<< HEAD
     "connect-mongo":"*",
     "connect-flash":"*"
+=======
+    "connect-mongo":"*"
+>>>>>>> 0162122dc7b30989d150f54f6b47ec9d98f5ead8
   }
 }
