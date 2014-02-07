@@ -1,0 +1,78 @@
+<style>
+
+.xx-box{
+	left:50%;
+	top:50%;
+	margin-left:-250px;
+	margin-top: -230px;
+	width:500px;
+	height:500px;
+	
+}
+.xx-box .text{
+	top:30%;
+	height:108px;
+	line-height:108px;
+	left:35px;
+	color:#f00;
+	text-shadow: 3px 3px 4px #f00;
+	font-size:60px;
+	font-weight:bold;
+	width:100%;
+	text-align:center;
+	font-family:Tangerine,Tahoma,Arial,"\65f6\5c1a\4e2d\9ed1\7b80\4f53","\5b8b\4f53";
+}
+</style>
+<span style="float:right">
+	<div class="xx-box" id="xx-box" style="position:absolute">
+		<div class="text" style="position:absolute">Happy New Year!</div>
+	</div>
+</span>
+<script>
+function createPoint(x,y,id){
+	var div = document.createElement("div");
+	div.className = "item";
+	div.style.left = x + "px";
+	div.style.top = y + "px";
+	div.style.position = "absolute";
+	var img = document.createElement("img");
+	img.src = "/images/flower.png";
+	div.appendChild(img);
+	div.id = id;
+	document.getElementById("xx-box").appendChild(div);
+	$("#"+id).hide();
+	$("#"+id).fadeIn(3000);
+}
+var i = 0, r = 100,id = 0, dx = 250, dy = 100, c = "#f00";
+var arr = [];
+function insect(x1,x2,x3,x4){
+    return (x1 > x3 && x1 < x4) || (x2 > x3 && x2 < x4) || (x3 > x1 && x3 < x2) || (x4 > x1 && x3 < x2);
+}
+function conflict(rect1, rect2, diff){
+    console.log(rect1 + " " + rect2);
+    return insect(rect1[0],rect1[0]+diff,rect2[0],rect2[0]+diff) && insect(rect1[1],rect1[1]+diff,rect2[1],rect2[1]+diff);
+}
+function heartShape(){
+	var m,n,x,y;
+	if(i <= 7){
+		m = i;
+		n = -r * (((Math.sin(i) * Math.sqrt(Math.abs(Math.cos(i)))) / (Math.sin(i) + 1.4)) - 2 * Math.sin(i) + 2);
+		x = n * Math.cos(m) + dx;
+		y = n * Math.sin(m) + dy;
+		i += 0.01;
+		var flag = 0;
+		var now = [x,y];
+		for(var j = 0; j < arr.length; j++){
+			if(conflict(arr[j],now,30)) {flag  = 1; break;}		
+		}
+		if(0== flag){
+		    id += 1;
+			arr.push(now);		
+			createPoint(x,y,"flower" + id);
+		    setTimeout(heartShape,200);
+		}
+		else setTimeout(heartShape,0);
+	}
+}
+heartShape();
+</script>

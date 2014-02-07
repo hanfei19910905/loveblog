@@ -4,93 +4,44 @@
 <meta charset="utf-8">
 <title><%= title %></title>
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Tangerine">
-<script src="/js/jquery-2.0.3.js">
-</script>
-<style>
-div{
-	position:absolute;
-}
-.xx-box{
-	left:50%;
-	top:50%;
-	margin-left:-250px;
-	margin-top:-250px;
-	width:500px;
-	height:500px;
-	
-}
-.xx-box .text{
-	top:30%;
-	height:108px;
-	line-height:108px;
-	left:35px;
-	color:#f00;
-	text-shadow: 3px 3px 4px #f00;
-	font-size:36px;
-	font-weight:bold;
-	width:100%;
-	text-align:center;
-	font-family:Tangerine,Tahoma,Arial,"\65f6\5c1a\4e2d\9ed1\7b80\4f53","\5b8b\4f53";
-}
-.xx-box .item{
-	width:60px;
-	height:60px;
-	overflow:hidden;
-}
-</style>
-</head>
-<body>
-<span style="float:right">
-	<div class="xx-box" id="xx-box">
-		<div class="text">Merry Christmas</div>
-	</div>
-</span>
-<script>
-function createPoint(x,y,id){
-	var div = document.createElement("div");
-	div.className = "item";
-	div.style.left = x + "px";
-	div.style.top = y + "px";	
-	var img = document.createElement("img");
-	img.src = "/images/flower.png";
-	div.appendChild(img);
-	div.id = id;
-	document.getElementById("xx-box").appendChild(div);
-	$("#"+id).hide();
-	$("#"+id).fadeIn(3000);
-}
-var i = 0, r = 100,id = 0, dx = 250, dy = 100, c = "#f00";
-var arr = [];
-function insect(x1,x2,x3,x4){
-    return (x1 > x3 && x1 < x4) || (x2 > x3 && x2 < x4) || (x3 > x1 && x3 < x2) || (x4 > x1 && x3 < x2);
-}
-function conflict(rect1, rect2, diff){
-    console.log(rect1 + " " + rect2);
-    return insect(rect1[0],rect1[0]+diff,rect2[0],rect2[0]+diff) && insect(rect1[1],rect1[1]+diff,rect2[1],rect2[1]+diff);
-}
-function heartShape(){
-	var m,n,x,y;
-	if(i <= 7){
-		m = i;
-		n = -r * (((Math.sin(i) * Math.sqrt(Math.abs(Math.cos(i)))) / (Math.sin(i) + 1.4)) - 2 * Math.sin(i) + 2);
-		x = n * Math.cos(m) + dx;
-		y = n * Math.sin(m) + dy;
-		i += 0.01;
-		var flag = 0;
-		var now = [x,y];
-		for(var j = 0; j < arr.length; j++){
-			if(conflict(arr[j],now,30)) {flag  = 1; break;}		
-		}
-		if(0== flag){
-		    id += 1;
-			arr.push(now);		
-			createPoint(x,y,"flower" + id);
-		    setTimeout(heartShape,200);
-		}
-		else setTimeout(heartShape,0);
-	}
-}
-heartShape();
-</script>
+<script type="text/javascript" src="/bootstrap/js/jquery-2.0.3.js"></script>
+<script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
+<div class="tabbable" style="margin-bottom: 9px;">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#1" data-toggle="tab">漂漂的爱心</a></li>
+          <li><a href="#2" data-toggle="tab">萌萌的记录</a></li>
+          <li><a href="#3" data-toggle="tab">写下我们的回忆</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="1">
+            <div class="container">
+               <%- include heart %>
+      	    </div>
+      	  </div>
+          <div class="tab-pane" id="2">
+            <p>这里是段2</p>
+          </div>
+          <div class="tab-pane" id="3">
+	          <div class="container" style="margin-left:400px">
+	          	<%if(success){%>
+		          	<div class="alert alert-block">
+					  <a class="close" data-dismiss="alert">×</a>
+	 					<strong>喵，发送成功啦！</strong> 
+					</div>
+				<%}%>
+				<%if(error){%>
+		          	<div class="alert alert-block">
+					  <a class="close" data-dismiss="alert">×</a>
+	 					<strong>喵，出错啦！</strong> 
+					</div>
+				<%}%>
+	            <%- include input %>
+	          </div>
+          </div>
+        </div>
+      </div> <!-- /tabbable -->
+    </div>
+
 </body>
 </html>
