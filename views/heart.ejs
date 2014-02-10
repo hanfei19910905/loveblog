@@ -49,7 +49,6 @@ function insect(x1,x2,x3,x4){
     return (x1 > x3 && x1 < x4) || (x2 > x3 && x2 < x4) || (x3 > x1 && x3 < x2) || (x4 > x1 && x3 < x2);
 }
 function conflict(rect1, rect2, diff){
-    console.log(rect1 + " " + rect2);
     return insect(rect1[0],rect1[0]+diff,rect2[0],rect2[0]+diff) && insect(rect1[1],rect1[1]+diff,rect2[1],rect2[1]+diff);
 }
 function heartShape(){
