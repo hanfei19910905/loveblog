@@ -1,3 +1,4 @@
+var BSON = require('mongodb').BSONPure;
 var mongodb = require('./db');
 function Post(name, title, post){
     this.name = name;
@@ -81,7 +82,10 @@ Post.remove = function(id, callback){
                 mongodb.close();
                 return callback(err);
             }
-            collection.remove({_id:id},function(err,db){
+            console.log(id);
+            var obj_id = BSON.ObjectID.createFromHexString(id);
+            collection.remove({_id:obj_id},function(err,db){
+                mongodb.close();
                 if(err){
                     return callback(err);
                 }
