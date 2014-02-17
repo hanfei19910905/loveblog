@@ -5,7 +5,6 @@ module.exports = function(app) {
             if(err){
                 throw(err);
             }
-            console.log(posts);
             res.render('index', {
                             title: 'LoveBlog',
                             success:req.flash('success').toString(),
@@ -24,6 +23,14 @@ module.exports = function(app) {
         	}
         	req.flash('success','success!')
         	res.redirect('/');
+        });
+    });
+    app.get('/remove',function(req,res){
+        console.log(req.query);
+        var id = req.query.id;
+        Post.remove(id, function(err,db){
+            console.log(err);
+            res.redirect('/')
         });
     });
 }
