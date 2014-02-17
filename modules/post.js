@@ -52,7 +52,7 @@ Post.get = function(name, callback){
         }
         db.collection('posts',function(err, collection){
             if(err) {
-                mongdb.close();
+                mongodb.close();
                 return callback(err);
             }
             var query = {};
@@ -60,7 +60,7 @@ Post.get = function(name, callback){
                 query.name = name;
             }
             collection.find(query).sort({time:-1}).toArray(function(err,docs){
-                mongdb.close();
+                mongodb.close();
                 if(err){
                     return callback(err);
                 }
@@ -78,7 +78,7 @@ Post.remove = function(id, callback){
         }
         db.collection('posts',function(err, collection){
             if(err) {
-                mongdb.close();
+                mongodb.close();
                 return callback(err);
             }
             collection.remove({_id:id},function(err,db){
