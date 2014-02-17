@@ -1,0 +1,11 @@
+<% posts.forEach(function (post, index) { %>
+  <p><h2><a href="#"><%= post.title %></a></h2></p>
+  <p class="info">
+    作者：<a href="#"><%= post.name %></a> | 
+    日期：<%= post.time.minute %>
+  </p>
+  <p><%- post.post %></p>
+  <a href="/remove?id=<%= post._id %>"><input class="btn btn-danger btn-mini" type = "button"value = "delete"/></a>
+  <a href="/edit?id=<%= post._id %>"><button class="btn btn-warning btn-mini">change it!</button></a>
+  
+<% }) %>
