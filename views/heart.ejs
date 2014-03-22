@@ -25,7 +25,7 @@
 </style>
 <span style="float:right">
 	<div class="xx-box" id="xx-box" style="position:absolute">
-		<div class="text" style="position:absolute">Happy New Year!</div>
+		<div class="text" style="position:absolute" id = "lovetime"></div>
 	</div>
 </span>
 <script>
@@ -74,4 +74,11 @@ function heartShape(){
 	}
 }
 heartShape();
+(function (){
+	var date = new Date();
+	var nows = date.getTime();
+	var past = Date.parse('2012-07-28');
+	var during = Math.floor((nows - past) / (1000 * 3600 * 24));
+	document.getElementById('lovetime').innerHTML = 'we have fallen in love' + '<br>' + during + ' days';
+})();
 </script>
